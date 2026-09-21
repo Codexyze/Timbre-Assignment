@@ -5,6 +5,8 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.scrymz.timbreassignment.core.media.MediaPlayerManager
 import com.scrymz.timbreassignment.data.repoimpl.MediaEditingRepoImpl
 import com.scrymz.timbreassignment.domain.repository.MediaEditingRepository
+import com.scrymz.timbreassignment.domain.usecase.GetAllSongsUseCase
+import com.scrymz.timbreassignment.domain.usecase.GetAllVideosUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +36,19 @@ object DiModule {
         repositoryImpl: MediaEditingRepoImpl
     ): MediaEditingRepository {
         return repositoryImpl
+    }
+
+    @Provides
+    fun provideGetAllSongsUseCase(
+        repository: MediaEditingRepository
+    ): GetAllSongsUseCase {
+        return GetAllSongsUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideGetAllVideosUseCase(
+        repository: MediaEditingRepository
+    ): GetAllVideosUseCase {
+        return GetAllVideosUseCase(repository = repository)
     }
 }
