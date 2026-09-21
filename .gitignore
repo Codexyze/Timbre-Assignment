@@ -1,0 +1,56 @@
+# Built application files / Bundles & Packages
+*.apk
+*.ap_
+*.aab
+*.abb
+*.dmg
+*.exe
+*.zip
+*.tar.gz
+*.rar
+*.dex
+
+# Java & Kotlin output
+*.class
+.kotlin/
+.kotlin_module
+
+# Gradle build output & Caches
+.gradle/
+/build
+*/build
+build/
+
+# Local configuration files (SDK paths, secrets)
+local.properties
+
+# Signing / Key files
+*.jks
+*.keystore
+*.pepk
+
+# IDE & Project files (Android Studio / IntelliJ)
+.idea/
+*.iml
+*.iws
+*.ipr
+/captures
+
+# NDK & Native Build outputs
+.externalNativeBuild
+.cxx/
+/obj/
+/libs/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs & Profiling
+*.log
+*.hprof
