@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ContentCut
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -28,6 +27,7 @@ import com.nutrino.timbreassignment.presentation.screens.homescreen.components.F
 import com.nutrino.timbreassignment.presentation.screens.homescreen.components.HomeScreenBottomBar
 import com.nutrino.timbreassignment.presentation.screens.homescreen.components.HomeScreenHeader
 import com.nutrino.timbreassignment.presentation.screens.homescreen.model.HomeTab
+import com.nutrino.timbreassignment.presentation.screens.settings.SettingsScreen
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
 @Composable
@@ -73,15 +73,15 @@ fun HomeScreen(
                 .padding(innerPadding),
             contentAlignment = Alignment.TopCenter
         ) {
-            if (!hasPermission) {
-                PermissionNotGrantedScreen(
-                    onRequestPermissionClick = {
-                        permissionLauncher.launch(PermissionUtils.getRequiredMediaPermissions())
-                    }
-                )
-            } else {
-                when (selectedTab) {
-                    HomeTab.AUDIO -> {
+            when (selectedTab) {
+                HomeTab.AUDIO -> {
+                    if (!hasPermission) {
+                        PermissionNotGrantedScreen(
+                            onRequestPermissionClick = {
+                                permissionLauncher.launch(PermissionUtils.getRequiredMediaPermissions())
+                            }
+                        )
+                    } else {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -94,7 +94,15 @@ fun HomeScreen(
                             )
                         }
                     }
-                    HomeTab.VIDEO -> {
+                }
+                HomeTab.VIDEO -> {
+                    if (!hasPermission) {
+                        PermissionNotGrantedScreen(
+                            onRequestPermissionClick = {
+                                permissionLauncher.launch(PermissionUtils.getRequiredMediaPermissions())
+                            }
+                        )
+                    } else {
                         Column(
                             modifier = Modifier
                                 .fillMaxSize()
@@ -107,14 +115,9 @@ fun HomeScreen(
                             )
                         }
                     }
-                    HomeTab.SETTINGS -> {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "Settings Content")
-                        }
-                    }
+                }
+                HomeTab.SETTINGS -> {
+                    SettingsScreen()
                 }
             }
         }

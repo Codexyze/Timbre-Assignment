@@ -25,7 +25,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nutrino.timbreassignment.core.utils.PermissionUtils
 import com.nutrino.timbreassignment.data.dataclass.Song
 import com.nutrino.timbreassignment.presentation.common.PermissionNotGrantedScreen
-import com.nutrino.timbreassignment.presentation.uistates.GetAllSongState
+import com.nutrino.timbreassignment.presentation.screens.getallaudio.states.GetAllSongState
 import com.nutrino.timbreassignment.presentation.viewmodel.MediaEditingViewModel
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 

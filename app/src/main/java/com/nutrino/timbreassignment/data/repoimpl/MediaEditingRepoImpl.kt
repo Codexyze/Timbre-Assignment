@@ -2,14 +2,20 @@ package com.nutrino.timbreassignment.data.repoimpl
 
 import android.content.ContentUris
 import android.content.Context
+import android.net.Uri
 import android.provider.MediaStore
+import com.arthenica.ffmpegkit.FFmpegKit
+import com.arthenica.ffmpegkit.ReturnCode
 import com.nutrino.timbreassignment.core.states.ResultState
 import com.nutrino.timbreassignment.data.dataclass.Song
 import com.nutrino.timbreassignment.data.dataclass.Video
 import com.nutrino.timbreassignment.domain.repository.MediaEditingRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import java.util.Locale
 import javax.inject.Inject
 
 class MediaEditingRepoImpl @Inject constructor(
@@ -124,4 +130,78 @@ class MediaEditingRepoImpl @Inject constructor(
             cursor?.close()
         }
     }
+
+    override suspend fun trimAudio(
+        inputPath: String,
+        outputPath: String,
+        startMs: Long,
+        endMs: Long
+    ): Flow<ResultState<String>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val startSec = String.format(Locale.US, "%.3f", startMs / 1000.0)
+            val endSec = String.format(Locale.US, "%.3f", endMs / 1000.0)
+
+            val ext = inputPath.substringAfterLast('.', "mp3")
+            val tempFile = java.io.File(context.cacheDir, "trimmed_temp_${System.currentTimeMillis()}.$ext")
+
+            val cmd = "-y -ss $startSec -to $endSec -i \"$inputPath\" -c copy \"${tempFile.absolutePath}\""
+            val session = FFmpegKit.execute(cmd)
+
+            if (ReturnCode.isSuccess(session.returnCode)) {
+                if (outputPath.startsWith("content://")) {
+                    val uri = Uri.parse(outputPath)
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        tempFile.inputStream().use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
+                    }
+                    tempFile.delete()
+                }
+                emit(ResultState.Success(outputPath))
+            } else {
+                tempFile.delete()
+                emit(ResultState.Error("Failed to trim audio"))
+            }
+        } catch (e: Exception) {
+            emit(ResultState.Error(e.message ?: "Unknown error during audio trimming"))
+        }
+    }.flowOn(Dispatchers.IO)
+
+    override suspend fun trimVideo(
+        inputPath: String,
+        outputPath: String,
+        startMs: Long,
+        endMs: Long
+    ): Flow<ResultState<String>> = flow {
+        emit(ResultState.Loading)
+        try {
+            val startSec = String.format(Locale.US, "%.3f", startMs / 1000.0)
+            val endSec = String.format(Locale.US, "%.3f", endMs / 1000.0)
+
+            val ext = inputPath.substringAfterLast('.', "mp4")
+            val tempFile = java.io.File(context.cacheDir, "trimmed_temp_${System.currentTimeMillis()}.$ext")
+
+            val cmd = "-y -ss $startSec -to $endSec -i \"$inputPath\" -c copy \"${tempFile.absolutePath}\""
+            val session = FFmpegKit.execute(cmd)
+
+            if (ReturnCode.isSuccess(session.returnCode)) {
+                if (outputPath.startsWith("content://")) {
+                    val uri = Uri.parse(outputPath)
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        tempFile.inputStream().use { inputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
+                    }
+                    tempFile.delete()
+                }
+                emit(ResultState.Success(outputPath))
+            } else {
+                tempFile.delete()
+                emit(ResultState.Error("Failed to trim video"))
+            }
+        } catch (e: Exception) {
+            emit(ResultState.Error(e.message ?: "Unknown error during video trimming"))
+        }
+    }.flowOn(kotlinx.coroutines.Dispatchers.IO)
 }

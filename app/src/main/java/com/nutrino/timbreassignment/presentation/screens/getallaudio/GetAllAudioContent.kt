@@ -32,8 +32,9 @@ import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.data.dataclass.Song
 import com.nutrino.timbreassignment.presentation.common.ErrorScreen
 import com.nutrino.timbreassignment.presentation.common.LoadingScreen
+import com.nutrino.timbreassignment.presentation.screens.getallaudio.components.NoAudioFoundView
 import com.nutrino.timbreassignment.presentation.screens.getallaudio.components.SongItem
-import com.nutrino.timbreassignment.presentation.uistates.GetAllSongState
+import com.nutrino.timbreassignment.presentation.screens.getallaudio.states.GetAllSongState
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,12 +73,9 @@ fun GetAllAudioContent(
                 }
                 is GetAllSongState.Success -> {
                     if (state.data.isEmpty()) {
-                        Box(
-                            modifier = Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(text = "No Audio Files Found")
-                        }
+                        NoAudioFoundView(
+                            onRefresh = onRetry
+                        )
                     } else {
                         Column(modifier = Modifier.fillMaxSize()) {
                             OutlinedTextField(
@@ -121,12 +119,10 @@ fun GetAllAudioContent(
                             }
 
                             if (filteredSongs.isEmpty()) {
-                                Box(
-                                    modifier = Modifier.fillMaxSize(),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Text(text = "No songs matching \"$searchQuery\"")
-                                }
+                                NoAudioFoundView(
+                                    message = "No Matching Songs",
+                                    description = "No audio files match \"$searchQuery\""
+                                )
                             } else {
                                 LazyColumn(
                                     modifier = Modifier.fillMaxSize()

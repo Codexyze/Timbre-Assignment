@@ -7,6 +7,8 @@ import com.nutrino.timbreassignment.data.repoimpl.MediaEditingRepoImpl
 import com.nutrino.timbreassignment.domain.repository.MediaEditingRepository
 import com.nutrino.timbreassignment.domain.usecase.GetAllSongsUseCase
 import com.nutrino.timbreassignment.domain.usecase.GetAllVideosUseCase
+import com.nutrino.timbreassignment.domain.usecase.TrimAudioUseCase
+import com.nutrino.timbreassignment.domain.usecase.TrimVideoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,5 +52,19 @@ object DiModule {
         repository: MediaEditingRepository
     ): GetAllVideosUseCase {
         return GetAllVideosUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideTrimAudioUseCase(
+        repository: MediaEditingRepository
+    ): TrimAudioUseCase {
+        return TrimAudioUseCase(repository = repository)
+    }
+
+    @Provides
+    fun provideTrimVideoUseCase(
+        repository: MediaEditingRepository
+    ): TrimVideoUseCase {
+        return TrimVideoUseCase(repository = repository)
     }
 }
