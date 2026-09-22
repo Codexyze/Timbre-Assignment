@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.scrymz.timbreassignment"
+    namespace = "com.nutrino.timbreassignment"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "com.scrymz.timbreassignment"
+        applicationId = "com.nutrino.timbreassignment"
         minSdk = 26
         targetSdk = 37
         versionCode = 1
@@ -42,11 +42,13 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Kotlin Serialization
     implementation(libs.kotlinx.serialization.json)
