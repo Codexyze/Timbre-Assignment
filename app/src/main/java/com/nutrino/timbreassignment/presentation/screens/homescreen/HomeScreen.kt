@@ -30,6 +30,16 @@ import com.nutrino.timbreassignment.presentation.screens.homescreen.model.HomeTa
 import com.nutrino.timbreassignment.presentation.screens.settings.SettingsScreen
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Root Composable for the Home Dashboard screen.
+ *
+ * Hosts top app bar header, bottom navigation bar switching between Audio, Video, and Settings tabs,
+ * and feature trigger cards for launching Audio and Video trimming tools.
+ *
+ * @param modifier Layout modifier.
+ * @param onTrimAudioClick Navigation trigger callback for audio trimming flow.
+ * @param onTrimVideoClick Navigation trigger callback for video trimming flow.
+ */
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,

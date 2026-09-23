@@ -24,6 +24,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Empty placeholder view displayed when no videos are found or match search criteria.
+ *
+ * @param modifier Layout modifier.
+ * @param message Header message.
+ * @param description Subtitle description string.
+ * @param onRefresh Refresh callback.
+ */
 @Composable
 fun NoVideoFoundView(
     modifier: Modifier = Modifier,

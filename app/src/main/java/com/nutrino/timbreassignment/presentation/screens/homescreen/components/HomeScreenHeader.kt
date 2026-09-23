@@ -7,6 +7,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Top App Bar header for the Home Screen displaying app branding.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenHeader() {

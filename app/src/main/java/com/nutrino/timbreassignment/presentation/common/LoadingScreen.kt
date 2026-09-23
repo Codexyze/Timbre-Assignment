@@ -9,6 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Reusable full-screen indeterminate progress loading spinner view.
+ *
+ * @param modifier Optional [Modifier] for screen container styling.
+ */
 @Composable
 fun LoadingScreen(
     modifier: Modifier = Modifier

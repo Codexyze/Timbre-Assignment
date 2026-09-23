@@ -32,6 +32,25 @@ import com.nutrino.timbreassignment.presentation.screens.videotrimmer.components
 import com.nutrino.timbreassignment.presentation.screens.videotrimmer.states.TrimVideoState
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * UI layout content for the Video Trimmer screen.
+ *
+ * @param videoTitle Display title of the video file.
+ * @param startMs Start trim offset in milliseconds.
+ * @param endMs End trim offset in milliseconds.
+ * @param totalDurationMs Total video duration in milliseconds.
+ * @param fileName Output video file name string.
+ * @param isPlaying Flag indicating active video playback.
+ * @param trimState Current [TrimVideoState].
+ * @param exoPlayer [ExoPlayer] instance for video preview rendering.
+ * @param onBackClick Navigation pop backstack callback.
+ * @param onPlayPauseClick Play/Pause toggle callback.
+ * @param onRangeChange Range slider adjustment callback.
+ * @param onFileNameChange File name edit callback.
+ * @param onTrimClick Execute trim action button click.
+ * @param onResetTrimState Reset trim state callback.
+ * @param onSaveToFolderClick SAF export document callback.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun VideoTrimmerContent(
@@ -143,52 +162,6 @@ private fun VideoTrimmerContentIdlePreview() {
             fileName = "Trimmed_Sample_Video",
             isPlaying = false,
             trimState = TrimVideoState.Idle,
-            exoPlayer = null,
-            onBackClick = {},
-            onPlayPauseClick = {},
-            onRangeChange = { _, _ -> },
-            onFileNameChange = {},
-            onTrimClick = {},
-            onResetTrimState = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun VideoTrimmerContentLoadingPreview() {
-    TimbreAssignmentTheme {
-        VideoTrimmerContent(
-            videoTitle = "Sample Video",
-            startMs = 5000L,
-            endMs = 30000L,
-            totalDurationMs = 60000L,
-            fileName = "Trimmed_Sample_Video",
-            isPlaying = false,
-            trimState = TrimVideoState.Loading,
-            exoPlayer = null,
-            onBackClick = {},
-            onPlayPauseClick = {},
-            onRangeChange = { _, _ -> },
-            onFileNameChange = {},
-            onTrimClick = {},
-            onResetTrimState = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun VideoTrimmerContentSuccessPreview() {
-    TimbreAssignmentTheme {
-        VideoTrimmerContent(
-            videoTitle = "Sample Video",
-            startMs = 5000L,
-            endMs = 30000L,
-            totalDurationMs = 60000L,
-            fileName = "Trimmed_Sample_Video",
-            isPlaying = false,
-            trimState = TrimVideoState.Success("/storage/emulated/0/Trimmed/video.mp4"),
             exoPlayer = null,
             onBackClick = {},
             onPlayPauseClick = {},

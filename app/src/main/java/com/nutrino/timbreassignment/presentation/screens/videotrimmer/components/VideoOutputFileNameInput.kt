@@ -10,6 +10,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Text field component for entering the output video file name.
+ *
+ * @param fileName Current file name string.
+ * @param onFileNameChange Text input modification callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun VideoOutputFileNameInput(
     fileName: String,

@@ -21,6 +21,13 @@ import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.data.dataclass.Song
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * List item card displaying song details including title and artist.
+ *
+ * @param song The [Song] data object.
+ * @param onClick Click callback triggered on item selection.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun SongItem(
     song: Song,

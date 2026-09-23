@@ -9,6 +9,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.nutrino.timbreassignment.presentation.screens.homescreen.model.HomeTab
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Bottom navigation bar allowing users to switch between home screen tabs.
+ *
+ * @param selectedTab The currently active [HomeTab].
+ * @param onTabSelected Callback function invoked when a navigation tab is tapped.
+ */
 @Composable
 fun HomeScreenBottomBar(
     selectedTab: HomeTab,

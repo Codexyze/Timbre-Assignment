@@ -1,4 +1,7 @@
 package com.nutrino.timbreassignment.core
 
-// ResultState is defined in com.scrymz.timbreassignment.core.states.ResultState
-// UI States (GetAllSongState, GetAllVideoState) are defined in com.scrymz.timbreassignment.presentation.uistates
+/**
+ * Type alias or reference pointing to [com.nutrino.timbreassignment.core.states.ResultState].
+ * Used across core modules to represent async data loading results.
+ */
+typealias CoreResultState<T> = com.nutrino.timbreassignment.core.states.ResultState<T>

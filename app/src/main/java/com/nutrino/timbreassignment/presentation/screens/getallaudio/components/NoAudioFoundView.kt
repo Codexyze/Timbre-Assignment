@@ -24,6 +24,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Placeholder view displayed when no audio files are found or match search queries.
+ *
+ * @param modifier Layout modifier.
+ * @param message Headline message text.
+ * @param description Subtitle descriptive explanation.
+ * @param onRefresh Optional refresh action callback.
+ */
 @Composable
 fun NoAudioFoundView(
     modifier: Modifier = Modifier,

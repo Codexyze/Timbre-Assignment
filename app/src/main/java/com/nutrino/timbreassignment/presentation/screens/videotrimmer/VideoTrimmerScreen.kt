@@ -18,6 +18,19 @@ import com.nutrino.timbreassignment.presentation.viewmodel.MediaEditingViewModel
 import com.nutrino.timbreassignment.presentation.viewmodel.MediaViewModel
 import kotlinx.coroutines.delay
 
+/**
+ * Screen component for trimming video files.
+ *
+ * Provides ExoPlayer video player preview, range slider start/end time selection,
+ * output file naming, and Storage Access Framework document export.
+ *
+ * @param videoPath Source video file path or URI string.
+ * @param videoTitle Display title of the video file.
+ * @param videoDurationMs Total video duration in milliseconds.
+ * @param onBackClick Navigation pop backstack action.
+ * @param mediaViewModel [MediaViewModel] managing video preview playback.
+ * @param viewModel [MediaEditingViewModel] executing video trimming requests.
+ */
 @Composable
 fun VideoTrimmerScreen(
     videoPath: String,
@@ -66,9 +79,10 @@ fun VideoTrimmerScreen(
     LaunchedEffect(isPlaying, endMs) {
         if (isPlaying) {
             val player = mediaViewModel.getPlayer()
-            while (isPlaying) {
+            while (isPlaying && player.isPlaying) {
                 if (player.currentPosition >= endMs) {
                     player.pause()
+                    isPlaying = false
                     break
                 }
                 delay(100)
@@ -90,11 +104,13 @@ fun VideoTrimmerScreen(
             val player = mediaViewModel.getPlayer()
             if (player.isPlaying) {
                 player.pause()
+                isPlaying = false
             } else {
                 if (player.currentPosition >= endMs || player.currentPosition < startMs) {
                     player.seekTo(startMs)
                 }
                 player.play()
+                isPlaying = true
             }
         },
         onRangeChange = { newStartMs, newEndMs ->
@@ -107,6 +123,7 @@ fun VideoTrimmerScreen(
                 mediaViewModel.seekTo(newStartMs)
             } else if (newEndMs != oldEnd) {
                 mediaViewModel.pause()
+                isPlaying = false
             }
         },
         onFileNameChange = { newName ->

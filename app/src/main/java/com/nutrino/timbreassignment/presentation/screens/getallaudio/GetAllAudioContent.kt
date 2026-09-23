@@ -25,7 +25,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,6 +36,14 @@ import com.nutrino.timbreassignment.presentation.screens.getallaudio.components.
 import com.nutrino.timbreassignment.presentation.screens.getallaudio.states.GetAllSongState
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * UI content layout for searching and filtering the list of songs retrieved from storage.
+ *
+ * @param state Current [GetAllSongState] emitting loading, success, or error state.
+ * @param onBackClick Navigation pop backstack action.
+ * @param onSongClick Callback triggered when a song item is clicked.
+ * @param onRetry Retry callback on failure or refresh.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GetAllAudioContent(

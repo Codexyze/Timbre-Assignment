@@ -27,6 +27,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Loading indicator view for ongoing video trimming operations.
+ *
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun VideoTrimLoadingView(
     modifier: Modifier = Modifier
@@ -48,6 +53,14 @@ fun VideoTrimLoadingView(
     }
 }
 
+/**
+ * Success view card displayed when video trimming completes.
+ *
+ * @param outputPath Destination output URI path string.
+ * @param onResetClick Reset trim action callback.
+ * @param onSaveToFolderClick SAF document export callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun VideoTrimSuccessView(
     outputPath: String,
@@ -109,6 +122,13 @@ fun VideoTrimSuccessView(
     }
 }
 
+/**
+ * Error view card displayed when video trimming fails.
+ *
+ * @param message Error description message.
+ * @param onRetryClick Retry action callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun VideoTrimErrorView(
     message: String,

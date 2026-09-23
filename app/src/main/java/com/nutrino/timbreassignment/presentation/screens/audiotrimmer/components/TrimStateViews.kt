@@ -27,6 +27,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Loading indicator card view displayed while trimming is in progress.
+ *
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun TrimLoadingView(
     modifier: Modifier = Modifier
@@ -48,6 +53,14 @@ fun TrimLoadingView(
     }
 }
 
+/**
+ * Success card view displayed when trimming completes successfully.
+ *
+ * @param outputPath Destination URI path string.
+ * @param onResetClick Reset trim flow callback.
+ * @param onSaveToFolderClick SAF export action callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun TrimSuccessView(
     outputPath: String,
@@ -109,6 +122,13 @@ fun TrimSuccessView(
     }
 }
 
+/**
+ * Error card view displayed when media trimming fails.
+ *
+ * @param message Error explanation message.
+ * @param onRetryClick Retry callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun TrimErrorView(
     message: String,

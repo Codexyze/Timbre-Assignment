@@ -17,11 +17,26 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.util.Locale
 import javax.inject.Inject
+import androidx.core.net.toUri
 
+/**
+ * Production implementation of [MediaEditingRepository].
+ *
+ * Interacts with system [MediaStore] content resolvers to query device audio and video files,
+ * and executes FFmpeg commands via FFmpegKit to trim audio and video files efficiently without re-encoding.
+ *
+ * @property context Application context injected via Hilt for content resolver access.
+ */
 class MediaEditingRepoImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : MediaEditingRepository {
 
+    /**
+     * Queries device storage via [MediaStore.Audio.Media.EXTERNAL_CONTENT_URI] for all available audio tracks.
+     *
+     * @return [Flow] emitting [ResultState.Loading], followed by [ResultState.Success] holding the list of [Song]s,
+     * or [ResultState.Error] on failure.
+     */
     override suspend fun getAllSongs(): Flow<ResultState<List<Song>>> = flow {
         val songs = mutableListOf<Song>()
         val uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
@@ -75,6 +90,12 @@ class MediaEditingRepoImpl @Inject constructor(
         }
     }
 
+    /**
+     * Queries device storage via [MediaStore.Video.Media.EXTERNAL_CONTENT_URI] for all available video files.
+     *
+     * @return [Flow] emitting [ResultState.Loading], followed by [ResultState.Success] holding the list of [Video]s,
+     * or [ResultState.Error] on failure.
+     */
     override suspend fun getAllVideos(): Flow<ResultState<List<Video>>> = flow {
         val videoFiles = mutableListOf<Video>()
         emit(ResultState.Loading)
@@ -131,6 +152,15 @@ class MediaEditingRepoImpl @Inject constructor(
         }
     }
 
+    /**
+     * Trims an audio file using FFmpeg stream copy between [startMs] and [endMs].
+     *
+     * @param inputPath Source audio file path or URI.
+     * @param outputPath Destination output URI string (SAF Uri or file path).
+     * @param startMs Start trim offset in milliseconds.
+     * @param endMs End trim offset in milliseconds.
+     * @return [Flow] emitting progress and output path upon completion.
+     */
     override suspend fun trimAudio(
         inputPath: String,
         outputPath: String,
@@ -150,7 +180,7 @@ class MediaEditingRepoImpl @Inject constructor(
 
             if (ReturnCode.isSuccess(session.returnCode)) {
                 if (outputPath.startsWith("content://")) {
-                    val uri = Uri.parse(outputPath)
+                    val uri = outputPath.toUri()
                     context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                         tempFile.inputStream().use { inputStream ->
                             inputStream.copyTo(outputStream)
@@ -168,6 +198,15 @@ class MediaEditingRepoImpl @Inject constructor(
         }
     }.flowOn(Dispatchers.IO)
 
+    /**
+     * Trims a video file using FFmpeg stream copy between [startMs] and [endMs].
+     *
+     * @param inputPath Source video file path or URI.
+     * @param outputPath Destination output URI string.
+     * @param startMs Start trim offset in milliseconds.
+     * @param endMs End trim offset in milliseconds.
+     * @return [Flow] emitting progress and output path upon completion.
+     */
     override suspend fun trimVideo(
         inputPath: String,
         outputPath: String,
@@ -187,7 +226,7 @@ class MediaEditingRepoImpl @Inject constructor(
 
             if (ReturnCode.isSuccess(session.returnCode)) {
                 if (outputPath.startsWith("content://")) {
-                    val uri = Uri.parse(outputPath)
+                    val uri = outputPath.toUri()
                     context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                         tempFile.inputStream().use { inputStream ->
                             inputStream.copyTo(outputStream)
@@ -203,5 +242,5 @@ class MediaEditingRepoImpl @Inject constructor(
         } catch (e: Exception) {
             emit(ResultState.Error(e.message ?: "Unknown error during video trimming"))
         }
-    }.flowOn(kotlinx.coroutines.Dispatchers.IO)
+    }.flowOn(Dispatchers.IO)
 }

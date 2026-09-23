@@ -23,9 +23,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Interactive range slider component for picking start and end trim timestamps.
+ *
+ * @param startMs Selected start time offset in milliseconds.
+ * @param endMs Selected end time offset in milliseconds.
+ * @param totalDurationMs Total media duration in milliseconds.
+ * @param isPlaying Playback state boolean.
+ * @param onPlayPauseClick Toggle playback callback.
+ * @param onRangeChange Range change callback emitting updated (startMs, endMs).
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun TrimRangeSlider(
     startMs: Long,

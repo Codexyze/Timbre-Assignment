@@ -32,6 +32,25 @@ import com.nutrino.timbreassignment.presentation.screens.audiotrimmer.components
 import com.nutrino.timbreassignment.presentation.screens.audiotrimmer.states.TrimAudioState
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * UI layout content for the Audio Trimmer screen.
+ *
+ * @param songTitle Display title of the audio song.
+ * @param startMs Start time offset in milliseconds.
+ * @param endMs End time offset in milliseconds.
+ * @param totalDurationMs Total audio duration in milliseconds.
+ * @param fileName Output audio file name string.
+ * @param isPlaying Flag indicating active audio playback.
+ * @param trimState Current [TrimAudioState] (Idle, Loading, Success, Error).
+ * @param exoPlayer [ExoPlayer] instance for audio preview player view.
+ * @param onBackClick Navigation pop backstack callback.
+ * @param onPlayPauseClick Toggle playback callback.
+ * @param onRangeChange Range slider adjustment callback.
+ * @param onFileNameChange Output file name edit callback.
+ * @param onTrimClick Execute trim action button click.
+ * @param onResetTrimState Reset state callback.
+ * @param onSaveToFolderClick SAF export action callback.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AudioTrimmerContent(
@@ -143,52 +162,6 @@ private fun AudioTrimmerContentIdlePreview() {
             fileName = "Trimmed_Sample_Song",
             isPlaying = false,
             trimState = TrimAudioState.Idle,
-            exoPlayer = null,
-            onBackClick = {},
-            onPlayPauseClick = {},
-            onRangeChange = { _, _ -> },
-            onFileNameChange = {},
-            onTrimClick = {},
-            onResetTrimState = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AudioTrimmerContentLoadingPreview() {
-    TimbreAssignmentTheme {
-        AudioTrimmerContent(
-            songTitle = "Sample Song",
-            startMs = 5000L,
-            endMs = 30000L,
-            totalDurationMs = 60000L,
-            fileName = "Trimmed_Sample_Song",
-            isPlaying = false,
-            trimState = TrimAudioState.Loading,
-            exoPlayer = null,
-            onBackClick = {},
-            onPlayPauseClick = {},
-            onRangeChange = { _, _ -> },
-            onFileNameChange = {},
-            onTrimClick = {},
-            onResetTrimState = {}
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun AudioTrimmerContentSuccessPreview() {
-    TimbreAssignmentTheme {
-        AudioTrimmerContent(
-            songTitle = "Sample Song",
-            startMs = 5000L,
-            endMs = 30000L,
-            totalDurationMs = 60000L,
-            fileName = "Trimmed_Sample_Song",
-            isPlaying = false,
-            trimState = TrimAudioState.Success("/storage/emulated/0/Trimmed/song.mp3"),
             exoPlayer = null,
             onBackClick = {},
             onPlayPauseClick = {},

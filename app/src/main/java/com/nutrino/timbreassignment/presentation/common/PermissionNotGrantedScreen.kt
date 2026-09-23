@@ -21,6 +21,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Screen presented when required media permissions have not been granted by the user.
+ *
+ * Provides a clear explanation and a button trigger to request permission.
+ *
+ * @param onRequestPermissionClick Callback function triggered when the grant permission button is clicked.
+ * @param modifier Optional [Modifier] for screen container styling.
+ * @param title Header title explaining permission requirement.
+ * @param description Detailed permission usage explanation.
+ */
 @Composable
 fun PermissionNotGrantedScreen(
     onRequestPermissionClick: () -> Unit,

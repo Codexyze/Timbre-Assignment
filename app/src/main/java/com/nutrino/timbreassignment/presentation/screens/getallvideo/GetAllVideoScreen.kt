@@ -29,6 +29,15 @@ import com.nutrino.timbreassignment.presentation.screens.getallvideo.states.GetA
 import com.nutrino.timbreassignment.presentation.viewmodel.MediaEditingViewModel
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Screen component for selecting a video file from device storage.
+ *
+ * Handles media permission checks and binds state from [MediaEditingViewModel].
+ *
+ * @param onBackClick Pop backstack navigation callback.
+ * @param onVideoClick Callback invoked when a video is selected.
+ * @param viewModel Injected [MediaEditingViewModel].
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GetAllVideoScreen(

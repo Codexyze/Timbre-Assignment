@@ -29,6 +29,15 @@ import com.nutrino.timbreassignment.presentation.screens.getallaudio.states.GetA
 import com.nutrino.timbreassignment.presentation.viewmodel.MediaEditingViewModel
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Screen component for selecting an audio song track from device storage.
+ *
+ * Handles runtime permission requests and binds state from [MediaEditingViewModel].
+ *
+ * @param onBackClick Navigation pop backstack callback.
+ * @param onSongClick Callback triggered when the user selects a song item.
+ * @param viewModel ViewModel collecting song list states.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GetAllAudioScreen(

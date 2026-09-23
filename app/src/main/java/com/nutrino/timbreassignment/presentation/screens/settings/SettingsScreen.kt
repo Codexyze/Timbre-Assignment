@@ -41,6 +41,11 @@ import androidx.core.content.ContextCompat
 import com.nutrino.timbreassignment.core.utils.PermissionUtils
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Settings tab screen displaying app permission statuses and shortcuts to open System Application Details Settings.
+ *
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier
@@ -93,6 +98,15 @@ fun SettingsScreen(
     }
 }
 
+/**
+ * List item card displaying individual permission status and navigation affordance.
+ *
+ * @param title Permission description label.
+ * @param icon Icon representing the permission category.
+ * @param isAllowed Boolean status of the permission grant.
+ * @param onClick Click handler to launch System Settings.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun PermissionStatusItem(
     title: String,

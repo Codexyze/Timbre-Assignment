@@ -16,7 +16,21 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nutrino.timbreassignment.presentation.viewmodel.MediaEditingViewModel
 import com.nutrino.timbreassignment.presentation.viewmodel.MediaViewModel
+import kotlinx.coroutines.delay
 
+/**
+ * Screen component for trimming audio songs.
+ *
+ * Integrates ExoPlayer audio preview, range slider start/end timestamp selection,
+ * file naming, and Storage Access Framework (SAF) document export launchers.
+ *
+ * @param songPath Source audio song file path or URI string.
+ * @param songTitle Title of the song to trim.
+ * @param songDurationMs Total audio track duration in milliseconds.
+ * @param onBackClick Pop backstack navigation callback.
+ * @param mediaViewModel [MediaViewModel] managing ExoPlayer audio playback.
+ * @param viewModel [MediaEditingViewModel] managing FFmpeg audio trim requests.
+ */
 @Composable
 fun AudioTrimmerScreen(
     songPath: String,
@@ -65,11 +79,13 @@ fun AudioTrimmerScreen(
     LaunchedEffect(isPlaying, endMs) {
         if (isPlaying) {
             val player = mediaViewModel.getPlayer()
-            while (isPlaying) {
+            while (isPlaying && player.isPlaying) {
                 if (player.currentPosition >= endMs) {
                     player.pause()
+                    isPlaying = false
                     break
                 }
+                delay(100)
             }
         }
     }
@@ -88,11 +104,13 @@ fun AudioTrimmerScreen(
             val player = mediaViewModel.getPlayer()
             if (player.isPlaying) {
                 player.pause()
+                isPlaying = false
             } else {
                 if (player.currentPosition >= endMs || player.currentPosition < startMs) {
                     player.seekTo(startMs)
                 }
                 player.play()
+                isPlaying = true
             }
         },
         onRangeChange = { newStartMs, newEndMs ->
@@ -105,6 +123,7 @@ fun AudioTrimmerScreen(
                 mediaViewModel.seekTo(newStartMs)
             } else if (newEndMs != oldEnd) {
                 mediaViewModel.pause()
+                isPlaying = false
             }
         },
         onFileNameChange = { newName ->

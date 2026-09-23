@@ -9,6 +9,7 @@ plugins {
 android {
     namespace = "com.nutrino.timbreassignment"
     compileSdk = 37
+    buildToolsVersion = "35.0.0"
 
     defaultConfig {
         applicationId = "com.nutrino.timbreassignment"

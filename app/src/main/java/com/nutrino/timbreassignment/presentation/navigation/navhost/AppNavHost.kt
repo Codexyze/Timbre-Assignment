@@ -18,6 +18,15 @@ import com.nutrino.timbreassignment.presentation.screens.getallvideo.GetAllVideo
 import com.nutrino.timbreassignment.presentation.screens.homescreen.HomeScreen
 import com.nutrino.timbreassignment.presentation.screens.videotrimmer.VideoTrimmerScreen
 
+/**
+ * Top-level Jetpack Compose Navigation Host setting up type-safe navigation routes.
+ *
+ * Configures transitions between [HomeScreen], [GetAllAudioScreen], [AudioTrimmerScreen],
+ * [GetAllVideoScreen], and [VideoTrimmerScreen].
+ *
+ * @param modifier Optional [Modifier] for container layout styling.
+ * @param navController [NavHostController] managing app backstack and navigation state.
+ */
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,

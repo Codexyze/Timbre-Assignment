@@ -21,6 +21,13 @@ import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.data.dataclass.Video
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * List item card displaying video details including title and containing folder.
+ *
+ * @param video The [Video] model object.
+ * @param onClick Selection click callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun VideoItem(
     video: Video,

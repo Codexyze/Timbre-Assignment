@@ -27,6 +27,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Reusable full-screen error display showing an error icon, error message, and optional retry action button.
+ *
+ * @param message Localized or detailed error message string to display.
+ * @param onRetry Optional callback function invoked when the user clicks the retry button.
+ * @param modifier Optional [Modifier] for screen container layout customization.
+ */
 @Composable
 fun ErrorScreen(
     message: String,

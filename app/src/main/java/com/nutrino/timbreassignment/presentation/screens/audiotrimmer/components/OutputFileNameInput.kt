@@ -10,6 +10,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Text field component for specifying the trimmed output file name.
+ *
+ * @param fileName Current file name string value.
+ * @param onFileNameChange Text modification callback.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun OutputFileNameInput(
     fileName: String,

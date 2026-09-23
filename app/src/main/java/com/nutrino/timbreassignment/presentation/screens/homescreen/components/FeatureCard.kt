@@ -22,6 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Interactive card UI component representing a primary feature action on the home screen.
+ *
+ * @param title Title text for the feature action (e.g., "Trim Audio").
+ * @param icon Vector icon representing the action.
+ * @param onClick Callback triggered on card click.
+ * @param modifier Layout modifier.
+ */
 @Composable
 fun FeatureCard(
     title: String,

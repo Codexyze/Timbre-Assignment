@@ -25,7 +25,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,6 +36,14 @@ import com.nutrino.timbreassignment.presentation.screens.getallvideo.components.
 import com.nutrino.timbreassignment.presentation.screens.getallvideo.states.GetAllVideoState
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Layout content displaying a searchable list of videos from device storage.
+ *
+ * @param state Current [GetAllVideoState] emitting video query results.
+ * @param onBackClick Navigation back callback.
+ * @param onVideoClick Video item click selection callback.
+ * @param onRetry Retry callback on query error.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GetAllVideoContent(

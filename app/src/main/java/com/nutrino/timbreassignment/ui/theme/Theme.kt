@@ -5,6 +5,9 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
+/**
+ * Crimson and dark surface color palette for Material 3 styling across Timbre Assignment.
+ */
 private val CrimsonColorPalette = darkColorScheme(
     primary = CrimsonAccent,
     onPrimary = AppBlack,
@@ -42,6 +45,11 @@ private val CrimsonColorPalette = darkColorScheme(
     scrim = AppBlack
 )
 
+/**
+ * Custom Material 3 theme wrapper applying crimson dark palette and typography to the application UI tree.
+ *
+ * @param content Composable UI hierarchy wrapped within this theme.
+ */
 @Composable
 fun TimbreAssignmentTheme(
     content: @Composable () -> Unit

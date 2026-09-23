@@ -14,10 +14,22 @@ import com.nutrino.timbreassignment.presentation.screens.videotrimmer.states.Tri
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * Main [ViewModel] responsible for orchestrating media list queries and media trimming workflows.
+ *
+ * Exposes UI states via [StateFlow]s for song listings, video listings, audio trimming, and video trimming.
+ *
+ * @property getAllSongsUseCase Injected use case for querying device songs.
+ * @property getAllVideosUseCase Injected use case for querying device videos.
+ * @property trimAudioUseCase Injected use case for audio trimming.
+ * @property trimVideoUseCase Injected use case for video trimming.
+ * @property ioDispatcher Injected IO dispatcher for background execution.
+ */
 @HiltViewModel
 class MediaEditingViewModel @Inject constructor(
     private val getAllSongsUseCase: GetAllSongsUseCase,
@@ -28,22 +40,33 @@ class MediaEditingViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _getAllSongsState = MutableStateFlow<GetAllSongState>(GetAllSongState.Idle)
-    val getAllSongsState = _getAllSongsState.asStateFlow()
+
+    /** StateFlow emitting the current list state of song tracks. */
+    val getAllSongsState: StateFlow<GetAllSongState> = _getAllSongsState.asStateFlow()
 
     private val _getAllVideosState = MutableStateFlow<GetAllVideoState>(GetAllVideoState.Idle)
-    val getAllVideosState = _getAllVideosState.asStateFlow()
+
+    /** StateFlow emitting the current list state of video files. */
+    val getAllVideosState: StateFlow<GetAllVideoState> = _getAllVideosState.asStateFlow()
 
     private val _trimAudioState = MutableStateFlow<TrimAudioState>(TrimAudioState.Idle)
-    val trimAudioState = _trimAudioState.asStateFlow()
+
+    /** StateFlow emitting the current audio trim execution status. */
+    val trimAudioState: StateFlow<TrimAudioState> = _trimAudioState.asStateFlow()
 
     private val _trimVideoState = MutableStateFlow<TrimVideoState>(TrimVideoState.Idle)
-    val trimVideoState = _trimVideoState.asStateFlow()
+
+    /** StateFlow emitting the current video trim execution status. */
+    val trimVideoState: StateFlow<TrimVideoState> = _trimVideoState.asStateFlow()
 
     init {
         getAllSongs()
         getAllVideos()
     }
 
+    /**
+     * Fetches all audio songs from device storage.
+     */
     fun getAllSongs() {
         viewModelScope.launch(ioDispatcher) {
             getAllSongsUseCase().collect { result ->
@@ -62,6 +85,9 @@ class MediaEditingViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Fetches all video files from device storage.
+     */
     fun getAllVideos() {
         viewModelScope.launch(ioDispatcher) {
             getAllVideosUseCase().collect { result ->
@@ -80,6 +106,14 @@ class MediaEditingViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Trims an audio file between [startMs] and [endMs].
+     *
+     * @param inputPath Source file path.
+     * @param outputPath Target document destination URI.
+     * @param startMs Start time in milliseconds.
+     * @param endMs End time in milliseconds.
+     */
     fun trimAudio(
         inputPath: String,
         outputPath: String = "",
@@ -108,6 +142,14 @@ class MediaEditingViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Trims a video file between [startMs] and [endMs].
+     *
+     * @param inputPath Source file path.
+     * @param outputPath Target document destination URI.
+     * @param startMs Start time in milliseconds.
+     * @param endMs End time in milliseconds.
+     */
     fun trimVideo(
         inputPath: String,
         outputPath: String = "",
@@ -136,10 +178,12 @@ class MediaEditingViewModel @Inject constructor(
         }
     }
 
+    /** Resets the audio trim state to [TrimAudioState.Idle]. */
     fun resetTrimAudioState() {
         _trimAudioState.value = TrimAudioState.Idle
     }
 
+    /** Resets the video trim state to [TrimVideoState.Idle]. */
     fun resetTrimVideoState() {
         _trimVideoState.value = TrimVideoState.Idle
     }

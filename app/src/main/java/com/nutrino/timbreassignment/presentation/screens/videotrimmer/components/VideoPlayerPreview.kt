@@ -15,6 +15,12 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import com.nutrino.timbreassignment.ui.theme.TimbreAssignmentTheme
 
+/**
+ * Embedded Media3 [PlayerView] container for video preview playback.
+ *
+ * @param exoPlayer Target [ExoPlayer] instance.
+ * @param modifier Layout modifier.
+ */
 @androidx.annotation.OptIn(UnstableApi::class)
 @Composable
 fun VideoPlayerPreview(
@@ -37,7 +43,9 @@ fun VideoPlayerPreview(
                 }
             },
             update = { playerView ->
-                playerView.player = exoPlayer
+                if (playerView.player != exoPlayer) {
+                    playerView.player = exoPlayer
+                }
             },
             modifier = Modifier.matchParentSize()
         )
